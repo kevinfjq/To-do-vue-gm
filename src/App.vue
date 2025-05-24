@@ -1,0 +1,74 @@
+<script setup lang="ts">
+  import { ref } from 'vue';
+  const priorities = {
+    low: 'Low',
+    medium: 'Medium',
+    high: 'High',
+    urgent: 'Urgent',
+    critical: 'Critical'
+  }
+
+  type Task = {
+    id: number;
+    text: string;
+    priority: keyof typeof priorities;
+    completed: boolean;
+  }
+
+  const newTaskText = ref('');
+  const tasks = ref([]);
+  tasks.value = [
+    { id: 1, text: 'Buy groceries', priority: 'medium', completed: false },
+    { id: 2, text: 'Finish project report', priority: 'high', completed: false },
+    { id: 3, text: 'Call mom', priority: 'low', completed: true },
+    { id: 4, text: 'Schedule dentist appointment', priority: 'urgent', completed: false }
+  ];
+</script>
+
+<template>
+  <header>
+      <h1>To do Gemini</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Tasks</h2>
+      <ul>
+        <li v-for="task in tasks" :key="task.id">
+          {{task.text}} - Priority: {{priorities[task.priority]}}
+        </li>
+      </ul>
+    </section>
+  </main>
+</template>
+
+<style scoped>
+header {
+  line-height: 1.5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+@media (min-width: 1024px) {
+  header {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .logo {
+    margin: 0 2rem 0 0;
+  }
+
+  header .wrapper {
+    display: flex;
+    place-items: center;
+    flex-wrap: wrap;
+  }
+}
+</style>
