@@ -10,6 +10,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'toggleComplete', taskId: string): void;
   (e: 'deleteTask', taskId: string): void;
+  (e: 'openEditModal', taskId: string): void;
 }>()
 
 const priorityOrder = { critical: 1, urgent: 2, high: 3, medium: 4, low: 5};
@@ -30,6 +31,13 @@ function handleToggleComplete(taskId: string) {
 function handleDeleteTask(taskId: string) {
   emit('deleteTask', taskId);
 }
+
+function handleOpenEditModal(taskId: string) {
+  const task = props.tasks.find(t => t.id === taskId);
+  if (task) {
+    emit('openEditModal', task.id);
+  }
+}
 </script>
 
 <template>
@@ -41,6 +49,7 @@ function handleDeleteTask(taskId: string) {
       :task="task"
       @toggleComplete="handleToggleComplete"
       @deleteTask="handleDeleteTask"
+      @openEditModal="handleOpenEditModal"
     />
   </ul>
 </template>

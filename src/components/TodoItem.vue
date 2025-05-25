@@ -8,6 +8,7 @@
   const emit = defineEmits<{
     (e: 'toggleComplete', taskId: string): void;
     (e: 'deleteTask', taskId: string): void;
+    (e: 'openEditModal', taskId: string): void;
   }>();
 
   function onToggleComplete() {
@@ -16,6 +17,10 @@
 
   function onDeleteTask() {
     emit('deleteTask', props.task.id);
+  }
+
+  function openEditModal() {
+    emit('openEditModal', props.task.id);
   }
 </script>
 
@@ -29,6 +34,7 @@
       <span :class="['priority-badge', `priority-${task.priority}`]">
         {{task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}}
       </span>
+      <button @click="openEditModal">Edit &rightarrow;</button>
       <button @click="onDeleteTask">Delete</button>
     </div>
   </li>
