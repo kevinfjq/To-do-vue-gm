@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { priorities } from '@/utils/priorities.ts'
   import type { Task } from '@/utils/tasks.ts'
-  import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+  import { nextTick, ref, watch } from 'vue'
 
   const localTaskData = defineModel<Task>({
     type: Object,
@@ -36,12 +36,16 @@
 
   const firstFocusableElement = ref<HTMLInputElement | null>(null);
 
+  const modalOverlayRef = ref<HTMLDivElement | null>(null);
+
+
   watch(() => props.isVisible, async (newValue) => {
-    if (newValue && firstFocusableElement.value) {
-      await nextTick();
-      firstFocusableElement.value.focus();
+    if (newValue) {
+      await nextTick(() => {
+        firstFocusableElement.value?.focus();
+      });
     }
-  }, {immediate: true})
+  })
 
   const emit = defineEmits<{
     (e: 'saveChanges', task: Task): void;
@@ -51,19 +55,31 @@
   const handleKeyDown = (e: KeyboardEvent) => {
     if( e.key === 'Escape') {
       emit('closeModal');
+      return;
     }
 
+    if(e.key === 'Tab') {
+
+      if (!modalOverlayRef.value) return;
+      const focusable = Array.from(
+        modalOverlayRef.value.querySelectorAll('input, select, textarea, button')
+      ).filter(el => !el.hasAttribute('disabled')) as HTMLElement[];
+
+      if(focusable.length === 0) return;
+
+      const first = focusable[0] as HTMLElement;
+      const last = focusable[focusable.length - 1] as HTMLElement;
+
+      if(e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if(!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   }
 
-  onMounted(() => {
-    if(props.isVisible) {
-      document.addEventListener('keydown', handleKeyDown);
-    }
-  })
-
-  onUnmounted(() => {
-    document.removeEventListener('keydown', handleKeyDown);
-  })
 
   function handleSaveChanges() {
     if (!localTaskData.value.text) return;
@@ -77,7 +93,12 @@
 </script>
 
 <template>
-  <div class="modal-overlay" @click.self="handleClose">
+  <div
+    class="modal-overlay"
+    @click.self="handleClose"
+    ref="modalOverlayRef"
+    @keydown="handleKeyDown"
+  >
     <div class="modal-content" role="dialog" aria-modal="true" :aria-labelledby="'modalTitleId'">
       <header class="modal-header">
         <h2 :id="modalTitleId" class="modal-title">Edit Task</h2>

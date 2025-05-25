@@ -23,11 +23,16 @@ import EditTaskModal from '@/components/EditTaskModal.vue'
 
   let previouslyFocusedElement: Element | null = null
 
-  function openEditModal(taskId: string) {
+  async function openEditModal(taskId: string) {
     const task = tasks.value.find(t => t.id === taskId) || null;
     previouslyFocusedElement = document.activeElement;
     taskToEditModal.value = task;
     showEditModal.value = true;
+
+    await nextTick();
+
+    const taskClose = document.querySelector(".modal-close-button") as HTMLElement;
+    taskClose?.focus();
   }
 
   async function closeModalAndRestoreFocus() {
