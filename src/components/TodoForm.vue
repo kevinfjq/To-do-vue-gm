@@ -57,31 +57,20 @@
 <style scoped>
 form {
   margin-bottom: 2rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
+  padding: clamp(1rem, 5vw, 1.5rem); /* Responsive padding */
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem; /* Increased gap */
+  background-color: var(--color-background-mute); /* Subtle background */
 }
 
-input {
-  padding: 0.5rem;
-  border-radius: 5px;
-}
-
-select {
-  padding: 0.5rem;
-  border-radius: 5px;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  background-color: #2c80ec;
-  color: white;
-  cursor: pointer;
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  margin-bottom: 0.5rem; /* Space below heading */
 }
 
 form div {
@@ -91,6 +80,49 @@ form div {
 }
 
 label {
-  font-weight: bold;
+  font-weight: 500; /* Slightly less bold */
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+input[type="text"],
+select {
+  padding: 0.75rem; /* Increased padding */
+  border-radius: 6px; /* Slightly larger radius */
+  border: 1px solid var(--color-border-hover);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: 1rem;
+  width: 100%; /* Ensure full width */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  border-color: #2c80ec; /* Highlight color from button */
+  box-shadow: 0 0 0 2px rgba(44, 128, 236, 0.2);
+}
+
+button[type="submit"] {
+  padding: 0.75rem 1.5rem; /* Increased padding */
+  border: none;
+  border-radius: 6px;
+  background-color: #2c80ec;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+  align-self: flex-start; /* Align button to the start */
+}
+
+button[type="submit"]:hover {
+  background-color: #1a6ac4;
+}
+
+select {
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 </style>

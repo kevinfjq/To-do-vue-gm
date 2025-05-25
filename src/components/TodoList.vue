@@ -55,7 +55,16 @@ function handleOpenEditModal(taskId: string) {
 </template>
 
 <style scoped>
-  ul {
-    width: 100%;
-  }
+ul {
+  width: 100%;
+  list-style: none; /* Remove default list bullets */
+  padding: 0; /* Remove default padding */
+}
+
+p { /* Style for "No tasks yet!" message */
+  text-align: center;
+  color: var(--color-text); /* Or appropriate theme color */
+  padding: 1rem;
+  font-style: italic;
+}
 </style>

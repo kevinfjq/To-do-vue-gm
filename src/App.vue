@@ -114,45 +114,25 @@ header {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 1rem 0; /* Added some padding */
+  margin-bottom: 1rem; /* Space below header */
 }
 
 .title {
-  font-size: 2rem;
-  color: #d0cece;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  font-size: clamp(1.8rem, 5vw, 2.5rem); /* Responsive font size */
+  color: var(--color-heading); /* Use theme variable */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Softer shadow */
+  font-weight: 600; /* Bolder title */
 }
 
 #app-container {
-  width: 50lvw;
+  width: 90%; /* Use percentage for responsiveness */
+  max-width: 700px; /* Max width for larger screens */
   margin: 20px auto;
-  padding: 20px;
-  font-family: sans-serif;
-  background-color: #423939;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: center;
-    flex-wrap: wrap;
-  }
+  padding: clamp(15px, 4vw, 30px); /* Responsive padding */
+  font-family: inherit; /* Inherit from body */
+  background-color: var(--color-background-soft); /* Use theme variable */
+  border-radius: 12px; /* Slightly larger radius */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Enhanced shadow */
 }
 </style>

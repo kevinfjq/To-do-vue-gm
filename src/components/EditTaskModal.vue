@@ -129,93 +129,131 @@
 </template>
 
 <style scoped>
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+  box-sizing: border-box;
+}
 
-  .modal-content {
-    background-color: var(--color-background);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    min-width: 300px;
-    max-width: 500px;
-  }
+.modal-content {
+  background-color: var(--color-background);
+  padding: clamp(20px, 5vw, 30px);
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  min-width: unset;
+  max-height: 90vh;
+  overflow-y: auto;
+}
 
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-  }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
+}
 
-  .modal-title {
-    margin: 0;
-    font-size: 1.25rem;
-  }
+.modal-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
 
-  .modal-close-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #d7352d;
-  }
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  cursor: pointer;
+  color: var(--color-text);
+  padding: 0.25rem;
+  line-height: 1;
+  transition: color 0.2s ease-in-out;
+}
 
-  .modal-body form div {
-    margin-bottom: 15px;
-  }
+.modal-close-button:hover {
+  color: #d7352d;
+}
 
-  .modal-body label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
+.modal-body form div {
+  margin-bottom: 1.25rem;
+}
 
-  .modal-body input[type="text"],
-  .modal-body textarea,
-  .modal-body select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
+.modal-body label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
 
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-  }
+.modal-body input[type="text"],
+.modal-body textarea,
+.modal-body select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border-hover);
+  border-radius: 6px;
+  box-sizing: border-box;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: 1rem;
+}
 
-  .modal-actions button {
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 1px solid transparent;
-  }
+.modal-body input[type="text"]:focus,
+.modal-body textarea:focus,
+.modal-body select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
 
-  .modal-actions button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-  }
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
 
-  .modal-actions button[type="button"] {
-    background-color: #f0f0f0;
-    color: #333;
-    border-color: #ccc;
-  }
+.modal-actions button {
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.modal-actions .save-button {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+.modal-actions .save-button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.modal-actions .cancel-button {
+  background-color: var(--color-background-mute);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.modal-actions.cancel-button:hover {
+  background-color: var(--color-border);
+}
 </style>
