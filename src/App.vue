@@ -83,7 +83,7 @@ import EditTaskModal from '@/components/EditTaskModal.vue'
 
 <template>
   <header>
-      <h1 class="title">To do Gemini</h1>
+      <h1 class="title">To do</h1>
   </header>
   <main>
     <div id="app-container">
